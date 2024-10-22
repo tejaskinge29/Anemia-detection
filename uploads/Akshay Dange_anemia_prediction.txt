@@ -1,0 +1,6 @@
+Patient Name: Akshay Dange
+Age: 20
+Gender: male
+Hemoglobin Level: 56.90 g/dL
+Dimorphic Anemia Detected: No
+Probability: 0.09%

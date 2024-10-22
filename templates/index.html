@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anemia Prediction</title>
+</head>
+<body>
+    <h1>Welcome to the Anemia Detection App</h1>
+
+    <form method="POST" enctype="multipart/form-data" action="/predict">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br><br>
+            <label for="age">Age:</label>
+            <input type="text" id="age" name="age" required><br><br>
+            <label for="gender">Gender:</label>
+            <input type="text" id="gender" name="gender" required><br><br>
+            <label for="hemoglobin">Hemoglobin (g/dL):</label>
+            <input type="text" id="hemoglobin" name="hemoglobin" required><br><br>
+            <label for="mcv">MCV (fL):</label>
+            <input type="text" id="mcv" name="mcv" required><br><br>
+            <label for="rbc_count">RBC Count (million cells/mcL):</label>
+            <input type="text" id="rbc_count" name="rbc_count" required><br><br>
+            <label for="image">Image:</label>
+            <input type="file" id="image" name="image" required><br><br>
+            <input type="submit" value="Predict">
+    </form>
+
+    <!-- <form action="/predict" method="post" enctype="multipart/form-data">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="age">Age:</label>
+        <input type="text" id="age" name="age" required><br><br>
+
+        <label for="gender">Gender:</label>
+        <input type="text" id="gender" name="gender" required><br><br>
+
+        <label for="hemoglobin">Hemoglobin Level:</label>
+        <input type="text" id="hemoglobin" name="hemoglobin" required><br><br>
+
+        <label for="image">Upload Blood Smear Image:</label>
+        <input type="file" id="image" name="image" accept="image/*" required><br><br>
+
+        <button type="submit">Submit</button>
+    </form> -->
+
+    <!-- Result section -->
+    {% if result %}
+    <h2>Prediction Result:</h2>
+    <p>Anemia Type Detected: <strong>{{ result }}</strong></p>
+    <p>Probability: <strong>{{ probability }}</strong></p>
+    {% endif %}
+
+</body>
+</html>
