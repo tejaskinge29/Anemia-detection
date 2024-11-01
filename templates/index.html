@@ -3,54 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anemia Prediction</title>
+    <title>Anemia Detection - Path Labs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .form-control {
+            margin-bottom: 15px;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .error {
+            color: red;
+            text-align: center;
+        }
+    </style>
+    <script>
+        function showAlert(warning) {
+            alert(warning);
+        }
+    </script>
 </head>
 <body>
-    <h1>Welcome to the Anemia Detection App</h1>
+
+<div class="container">
+    <h1>Anemia Detection - Path Labs</h1>
 
     <form method="POST" enctype="multipart/form-data" action="/predict">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required><br><br>
-            <label for="age">Age:</label>
-            <input type="text" id="age" name="age" required><br><br>
-            <label for="gender">Gender:</label>
-            <input type="text" id="gender" name="gender" required><br><br>
-            <label for="hemoglobin">Hemoglobin (g/dL):</label>
-            <input type="text" id="hemoglobin" name="hemoglobin" required><br><br>
-            <label for="mcv">MCV (fL):</label>
-            <input type="text" id="mcv" name="mcv" required><br><br>
-            <label for="rbc_count">RBC Count (million cells/mcL):</label>
-            <input type="text" id="rbc_count" name="rbc_count" required><br><br>
-            <label for="image">Image:</label>
-            <input type="file" id="image" name="image" required><br><br>
-            <input type="submit" value="Predict">
+        <div class="row">
+            <div class="col-md-6">
+                <input type="text" class="form-control" name="name" placeholder="Patient Name" required>
+                <input type="number" class="form-control" name="age" placeholder="Age" required>
+                <input type="text" class="form-control" name="gender" placeholder="Gender" required>
+            </div>
+            <div class="col-md-6">
+                <input type="text" class="form-control" name="hemoglobin" placeholder="Hemoglobin Level" required>
+                <input type="text" class="form-control" name="mcv" placeholder="MCV" required>
+                <input type="text" class="form-control" name="rbc_count" placeholder="RBC Count" required>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="formFile" class="form-label">Upload Blood Smear Image</label>
+            <input class="form-control" type="file" name="image" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+        {% if warning %}
+        <script>
+            showAlert("Invalid image or not related to Anemia");
+        </script>
+        <!-- <h2 style="color: red;">Warning:</h2> -->
+        <!-- <p style="color: black;">Invalid image or not related to Anemia</p> -->
+        <!-- <img src="{{ warning_image }}" alt="Warning Image" style="border: 2px solid red;"> -->
+        {% endif %}
+
+        <!-- {% if result %}
+        <h2>Result:</h2>
+        <p>Predicted Class: {{ result }}</p>
+        <p>Probability: {{ probability }}</p>
+        <a href="{{ pdf_path }}" download>Download Report</a>
+        {% endif %} -->
+
+        {% if result %}
+            <div class="mt-4 alert alert-success">
+                <!-- Anemia Type Detected: {{ result }} with a probability of {{ probability }}. -->
+                Anemia Type Detected: {{ result }}.
+                <a href="{{ pdf_path }}" download>Download Report</a>
+            </div>
+        {% endif %}
     </form>
 
-    <!-- <form action="/predict" method="post" enctype="multipart/form-data">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required><br><br>
-
-        <label for="age">Age:</label>
-        <input type="text" id="age" name="age" required><br><br>
-
-        <label for="gender">Gender:</label>
-        <input type="text" id="gender" name="gender" required><br><br>
-
-        <label for="hemoglobin">Hemoglobin Level:</label>
-        <input type="text" id="hemoglobin" name="hemoglobin" required><br><br>
-
-        <label for="image">Upload Blood Smear Image:</label>
-        <input type="file" id="image" name="image" accept="image/*" required><br><br>
-
-        <button type="submit">Submit</button>
-    </form> -->
-
-    <!-- Result section -->
-    {% if result %}
-    <h2>Prediction Result:</h2>
-    <p>Anemia Type Detected: <strong>{{ result }}</strong></p>
-    <p>Probability: <strong>{{ probability }}</strong></p>
-    {% endif %}
+    <!-- {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %} -->
+</div>
 
 </body>
 </html>
