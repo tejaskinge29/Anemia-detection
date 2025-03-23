@@ -1,4 +1,4 @@
-# Anemia Detection Using Image Processing - 2024
+# Anemia Detection Using Image Processing - 2025
 
 ## Overview
 The Anemia Detection project leverages machine learning and image processing techniques to identify different types of anemia from blood smear images. This solution is designed to assist medical professionals in making quicker and more accurate diagnoses. Built using Python with a Flask-based interface, the system processes input images, runs predictions, and generates comprehensive reports, providing a user-friendly experience for non-experts.
