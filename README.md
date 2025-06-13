@@ -17,3 +17,8 @@ The Anemia Detection project leverages machine learning and image processing tec
 - **Flask**: For developing the web-based user interface.
 - **OpenCV**: For image preprocessing and augmentation.
 - **FPDF**: For generating professional PDF reports containing diagnosis results.
+
+
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
