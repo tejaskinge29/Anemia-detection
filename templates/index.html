@@ -1,28 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anemia Detection - Path Labs</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
     <style>
         body {
             background-color: #f8f9fa;
         }
+
         .container {
             margin-top: 50px;
         }
+
         .form-control {
             margin-bottom: 15px;
         }
+
         h1 {
             color: #2c3e50;
             text-align: center;
             margin-bottom: 30px;
         }
+
         .error {
             color: red;
             text-align: center;
+        }
+
+        /* Custom styles */
+        .dropzone {
+            border: 2px dashed #ccc;
+            padding: 40px;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        .dropzone i {
+            font-size: 48px;
+            color: #6c757d;
+        }
+
+        .image-guidelines {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .image-guidelines li {
+            margin-bottom: 10px;
+        }
+
+        .image-guidelines li::before {
+            content: "✔";
+            color: green;
+            margin-right: 10px;
+        }
+
+        .image-guidelines li.warning::before {
+            content: "⚠";
+            color: orange;
+        }
+
+        .alert {
+            border-radius: 8px;
+            font-size: 1rem;
+            padding: 15px 20px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
     </style>
     <script>
@@ -31,61 +81,253 @@
         }
     </script>
 </head>
+
 <body>
 
-<div class="container">
-    <h1>Anemia Detection - Path Labs</h1>
-
-    <form method="POST" enctype="multipart/form-data" action="/predict">
-        <div class="row">
-            <div class="col-md-6">
-                <input type="text" class="form-control" name="name" placeholder="Patient Name" required>
-                <input type="number" class="form-control" name="age" placeholder="Age" required>
-                <input type="text" class="form-control" name="gender" placeholder="Gender" required>
-            </div>
-            <div class="col-md-6">
-                <input type="text" class="form-control" name="hemoglobin" placeholder="Hemoglobin Level" required>
-                <input type="text" class="form-control" name="mcv" placeholder="MCV" required>
-                <input type="text" class="form-control" name="rbc_count" placeholder="RBC Count" required>
-            </div>
+    <nav class="navbar bg-light shadow-sm px-4 py-3">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <span class="fw-bold fs-4 text-primary">Anemia Detection System</span>
+            <span class="text-muted">Multi-class Anemia Identification using ML</span>
         </div>
+    </nav>
 
-        <div class="mb-3">
-            <label for="formFile" class="form-label">Upload Blood Smear Image</label>
-            <input class="form-control" type="file" name="image" required>
-        </div>
+    <div class="container mt-4">
+        <div class="card shadow-sm rounded-4 p-3 bg-white">
+            <!-- Tabs -->
+            <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="data-tab" data-bs-toggle="tab" data-bs-target="#data"
+                        type="button" role="tab" aria-controls="data" aria-selected="true">
+                        <i class="bi bi-person-fill"></i> Patient Data
+                    </button>
+                </li>
+                <!-- <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="results-tab" data-bs-toggle="tab" data-bs-target="#results"
+                        type="button" role="tab" aria-controls="results" aria-selected="false">
+                        <i class="bi bi-file-earmark-text"></i> Results
+                    </button>
+                </li> -->
+            </ul>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+            <!-- Tab Content -->
+            <div class="tab-content" id="myTabContent">
+                <!-- Patient Data -->
+                <div class="tab-pane fade show active" id="data" role="tabpanel" aria-labelledby="data-tab">
+                    <!-- <h5 class="mb-3"><i class="bi bi-person-circle"></i> Patient Information</h5> -->
+                    <!-- You can add patient input fields here -->
+                    <div class="container">
+                        <!-- <h1>Anemia Detection - Path Labs</h1> -->
 
-        {% if warning %}
-        <script>
-            showAlert("Invalid image or not related to Anemia");
-        </script>
-        <!-- <h2 style="color: red;">Warning:</h2> -->
-        <!-- <p style="color: black;">Invalid image or not related to Anemia</p> -->
-        <!-- <img src="{{ warning_image }}" alt="Warning Image" style="border: 2px solid red;"> -->
-        {% endif %}
+                        <form method="POST" enctype="multipart/form-data" action="/predict">
+                            <div class="row">
+                                <div class="col-md-6">
 
-        <!-- {% if result %}
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Patient Name</label>
+                                        <input type="text" class="form-control" id="name" name="name"
+                                            placeholder="Enter full name" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="age" class="form-label">Age</label>
+                                        <input type="number" class="form-control" id="age" name="age"
+                                            placeholder="Enter age" max="99" min="1" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="gender" class="form-label">Gender</label>
+                                        <select class="form-control" name="gender" id="gender" required>
+                                            <option value="">Select Gender</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="blood_type" class="form-label">Blood Type</label>
+                                        <select class="form-control" name="blood_type" id="blood_type" required>
+                                            <option value="">Select Blood Type</option>
+                                            <option value="A+">A+</option>
+                                            <option value="A-">A-</option>
+                                            <option value="B+">B+</option>
+                                            <option value="B-">B-</option>
+                                            <option value="AB+">AB+</option>
+                                            <option value="AB-">AB-</option>
+                                            <option value="O+">O+</option>
+                                            <option value="O-">O-</option>
+                                            <!-- <option value="Other">Other</option> -->
+                                        </select>
+                                        <!-- <input type="text" class="form-control" name="blood_type"
+                                            placeholder="blood_type" required> -->
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="hemoglobin" class="form-label">Hemoglobin Level (g/dL)</label>
+                                        <input type="number" class="form-control" id="hemoglobin" name="hemoglobin"
+                                            placeholder="Enter Hemoglobin (5–18 g/dL)" min="5" max="18" step="0.1"
+                                            required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="mcv" class="form-label">MCV (fL)</label>
+                                        <input type="number" class="form-control" id="mcv" name="mcv"
+                                            placeholder="Enter MCV (60–120 fL)" min="60" max="120" step="0.1" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="rbc_count" class="form-label">RBC Count (10⁶/μL)</label>
+                                        <input type="number" class="form-control" id="rbc_count" name="rbc_count"
+                                            placeholder="Enter RBC Count (2.0–7.5 ×10⁶/μL)" min="2.0" max="7.5"
+                                            step="0.1" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="mch" class="form-label">MCH (pg)</label>
+                                        <input type="number" class="form-control" id="mch" name="mch"
+                                            placeholder="Enter MCH (20–40 pg)" min="20" max="40" step="0.1" required>
+                                    </div>
+                                </div>
+
+
+                                <!-- <div class="col-md-6">
+                                    <input type="text" class="form-control" name="hemoglobin"
+                                        placeholder="Hemoglobin Level" required>
+                                    <input type="text" class="form-control" name="mcv" placeholder="MCV" required>
+                                    <input type="text" class="form-control" name="rbc_count" placeholder="RBC Count"
+                                        required>
+                                    <input type="text" class="form-control" name="mch" placeholder="MCH" required>
+                                    <input type="text" class="form-control" name="mchc" placeholder="MCHC" required>
+
+                                </div> -->
+                            </div>
+
+                            <!-- <div class="mb-3">
+                                <label for="formFile" class="form-label">Upload Blood Smear Image</label>
+                                <input class="form-control" type="file" name="image" required>
+                            </div> -->
+
+                            <!-- image section -->
+                            <div class="container mt-5">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <!-- Dropzone for file upload -->
+                                        <div class="dropzone p-4">
+                                            <i class="fas fa-upload"></i>
+                                            <p class="mt-3">Drag and drop a blood smear image, or click to select</p>
+                                            <small>PNG, JPG, TIFF up to 10MB</small>
+                                            <input class="form-control" type="file" name="image" required>
+                                            <!-- <form action="#" method="post" enctype="multipart/form-data">
+                                                <input type="file" class="form-control mt-3" id="bloodSmearImage"
+                                                    name="image">
+                                            </form> -->
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <!-- Image Guidelines -->
+                                        <h5>Image Guidelines</h5>
+                                        <ul class="image-guidelines">
+                                            <li>Use high-resolution images (minimum 1000x1000 pixels)</li>
+                                            <li>Ensure proper lighting and focus</li>
+                                            <li>Blood smear should be properly stained</li>
+                                            <li>Avoid overlapping cells or artifacts</li>
+                                            <li class="warning">For best results, use images taken at 100x magnification
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- section ends -->
+                            {% if warning %}
+                            <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                                <strong>Warning!</strong> {{ warning }}
+                                <p>Invalid image or not related to Anemia</p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            <!-- <script>
+                                showAlert("Invalid image or not related to Anemia");
+                            </script> -->
+                            <!-- <h2 style="color: red;">Warning:</h2>
+                            <p style="color: black;">Invalid image or not related to Anemia</p> -->
+                            <!-- <img src="{{image}}" alt="Warning Image" style="border: 2px solid red;"> -->
+                            {% endif %}
+
+                            <button type="submit" class="btn btn-primary">Submit</button>
+
+
+                            <!-- {% if result %}
         <h2>Result:</h2>
         <p>Predicted Class: {{ result }}</p>
         <p>Probability: {{ probability }}</p>
         <a href="{{ pdf_path }}" download>Download Report</a>
         {% endif %} -->
 
-        {% if result %}
-            <div class="mt-4 alert alert-success">
-                <!-- Anemia Type Detected: {{ result }} with a probability of {{ probability }}. -->
-                Anemia Type Detected: {{ result }}.
-                <a href="{{ pdf_path }}" download>Download Report</a>
-            </div>
-        {% endif %}
-    </form>
+                            {% if result %}
+                            <div class="mt-4 alert alert-success">
+                                Anemia Type Detected: {{ result }}.
+                                <br>
+                                <a href="{{ url_for('download_report', filename=pdf_filename) }}"
+                                    class="btn btn-sm btn-success mt-2">
+                                    <i class="bi bi-download"></i> Download Report
+                                </a>
+                            </div>
+                            {% endif %}
 
-    <!-- {% if error %}
+                            <!-- {% if result %}
+                            <div class="mt-4 alert alert-success"> -->
+                            <!-- Anemia Type Detected: {{ result }} with a probability of {{ probability }}. -->
+                            <!-- Anemia Type Detected: {{ result }}.
+                                <a href="{{ pdf_path }}" download>Download Report</a>
+                            </div>
+                            {% endif %} -->
+                        </form>
+
+                        <!-- {% if error %}
         <div class="error">{{ error }}</div>
     {% endif %} -->
-</div>
+                    </div>
+
+                    <!-- Results -->
+                    <div class="tab-pane fade" id="results" role="tabpanel" aria-labelledby="results-tab">
+                        <h5 class="mb-3"><i class="bi bi-clipboard-data"></i> Prediction Results</h5>
+                        <!-- You can render prediction result here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        <footer class="bg-light text-center text-lg-start mt-5">
+            <div class="container p-4">
+                <!-- Grid row -->
+                <div class="row">
+                    <!-- Grid column -->
+                    <div class="col-md-12 d-flex justify-content-center gap-4 mb-3">
+                        <a href="{{ url_for('home') }}" class="btn btn-outline-dark">
+                            Home
+                        </a>
+                        <a href="{{ url_for('about') }}" class="btn btn-outline-dark">
+                            Team
+                        </a>
+                    </div>
+                    <!-- Grid column -->
+                </div>
+                <!-- Grid row -->
+            </div>
+
+            <!-- Copyright -->
+            <div class="text-center p-3 bg-white border-top">
+                © 2025 Anemia Detection System. All rights reserved.
+            </div>
+            <!-- Copyright -->
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
+
 
 </body>
+
 </html>

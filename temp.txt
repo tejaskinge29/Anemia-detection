@@ -1,0 +1,242 @@
+    code of Image container
+    
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Dropzone for file upload -->
+                <div class="dropzone p-4">
+                    <i class="fas fa-upload"></i>
+                    <p class="mt-3">Drag and drop a blood smear image, or click to select</p>
+                    <small>PNG, JPG, TIFF up to 10MB</small>
+                    <form action="#" method="post" enctype="multipart/form-data">
+                        <input type="file" class="form-control mt-3" id="bloodSmearImage" name="bloodSmearImage">
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <!-- Image Guidelines -->
+                <h5>Image Guidelines</h5>
+                <ul class="image-guidelines">
+                    <li>Use high-resolution images (minimum 1000x1000 pixels)</li>
+                    <li>Ensure proper lighting and focus</li>
+                    <li>Blood smear should be properly stained</li>
+                    <li>Avoid overlapping cells or artifacts</li>
+                    <li class="warning">For best results, use images taken at 100x magnification</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+FORM container
+
+   <div class="container">
+        <!-- <h1>Anemia Detection - Path Labs</h1> -->
+
+        <form method="POST" enctype="multipart/form-data" action="/predict">
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="text" class="form-control" name="name" placeholder="Patient Name" required>
+                    <input type="number" class="form-control" name="age" placeholder="Age" required>
+                    <input type="text" class="form-control" name="gender" placeholder="Gender" required>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" name="hemoglobin" placeholder="Hemoglobin Level" required>
+                    <input type="text" class="form-control" name="mcv" placeholder="MCV" required>
+                    <input type="text" class="form-control" name="rbc_count" placeholder="RBC Count" required>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Upload Blood Smear Image</label>
+                <input class="form-control" type="file" name="image" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+            {% if warning %}
+            <script>
+                showAlert("Invalid image or not related to Anemia");
+            </script>
+            <!-- <h2 style="color: red;">Warning:</h2> -->
+            <!-- <p style="color: black;">Invalid image or not related to Anemia</p> -->
+            <!-- <img src="{{ warning_image }}" alt="Warning Image" style="border: 2px solid red;"> -->
+            {% endif %}
+
+            <!-- {% if result %}
+        <h2>Result:</h2>
+        <p>Predicted Class: {{ result }}</p>
+        <p>Probability: {{ probability }}</p>
+        <a href="{{ pdf_path }}" download>Download Report</a>
+        {% endif %} -->
+
+            {% if result %}
+            <div class="mt-4 alert alert-success">
+                <!-- Anemia Type Detected: {{ result }} with a probability of {{ probability }}. -->
+                Anemia Type Detected: {{ result }}.
+                <a href="{{ pdf_path }}" download>Download Report</a>
+            </div>
+            {% endif %}
+        </form>
+
+        <!-- {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %} -->
+    </div>
+
+
+    lastly taken files edit
+    
+                    <div class="container">
+                        <form method="POST" enctype="multipart/form-data" action="/predict">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="name" placeholder="Patient Name"
+                                        required>
+                                    <input type="number" class="form-control" name="age" placeholder="Age" required>
+                                    <input type="text" class="form-control" name="gender" placeholder="Gender" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="hemoglobin"
+                                        placeholder="Hemoglobin Level" required>
+                                    <input type="text" class="form-control" name="mcv" placeholder="MCV" required>
+                                    <input type="text" class="form-control" name="rbc_count" placeholder="RBC Count"
+                                        required>
+                                </div>
+                            </div>
+                            <!-- Image part -->
+                            <!-- <div class="mb-3">
+                            <label for="formFile" class="form-label">Upload Blood Smear Image</label>
+                            <input class="form-control" type="file" name="image" required>
+                        </div> -->
+                            <div class="container mt-5">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <!-- Dropzone for file upload -->
+                                        <div class="dropzone p-4">
+                                            <i class="fas fa-upload"></i>
+                                            <p class="mt-3">Drag and drop a blood smear image, or click to select</p>
+                                            <small>PNG, JPG, TIFF up to 10MB</small>
+                                            <form action="#" method="post" enctype="multipart/form-data">
+                                                <input type="file" class="form-control mt-3" id="bloodSmearImage"
+                                                    name="image">
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <!-- Image Guidelines -->
+                                        <h5>Image Guidelines</h5>
+                                        <ul class="image-guidelines">
+                                            <li>Use high-resolution images (minimum 1000x1000 pixels)</li>
+                                            <li>Ensure proper lighting and focus</li>
+                                            <li>Blood smear should be properly stained</li>
+                                            <li>Avoid overlapping cells or artifacts</li>
+                                            <li class="warning">For best results, use images taken at 100x magnification
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Submit</button>
+
+                            {% if warning %}
+                            <!-- <script>
+                                showAlert("Invalid image or not related to Anemia");
+                            </script> -->
+                            <!-- <h2 style="color: red;">Warning:</h2> -->
+                            <!-- <p style="color: black;">Invalid image or not related to Anemia</p> -->
+                            <!-- <img src="{{ warning_image }}" alt="Warning Image" style="border: 2px solid red;"> -->
+                            {% endif %}
+
+                            <!-- {% if result %}
+        <h2>Result:</h2>
+        <p>Predicted Class: {{ result }}</p>
+        <p>Probability: {{ probability }}</p>
+        <a href="{{ pdf_path }}" download>Download Report</a>
+        {% endif %} -->
+
+                            {% if result %}
+                            <div class="mt-4 alert alert-success">
+                                <!-- Anemia Type Detected: {{ result }} with a probability of {{ probability }}. -->
+                                Anemia Type Detected: {{ result }}.
+                                <a href="{{ pdf_path }}" download>Download Report</a>
+                            </div>
+                            {% endif %}
+                        </form>
+
+                    </div>
+
+                    <!-- Results -->
+                    <div class="tab-pane fade" id="results" role="tabpanel" aria-labelledby="results-tab">
+                        <h5 class="mb-3"><i class="bi bi-clipboard-data"></i> Prediction Results</h5>
+                        <!-- You can render prediction result here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if result %}
+        <div class="mt-4 alert alert-success">
+            Anemia Type Detected: {{ result }}.
+            <a href="{{ pdf_path }}" download>Download Report</a>
+        </div>
+        {% endif %}
+        <div class="container">
+            <!-- <h1>Anemia Detection - Path Labs</h1> -->
+
+            <form method="POST" enctype="multipart/form-data" action="/predict">
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" name="name" placeholder="Patient Name" required>
+                        <input type="number" class="form-control" name="age" placeholder="Age" required>
+                        <input type="text" class="form-control" name="gender" placeholder="Gender" required>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" name="hemoglobin" placeholder="Hemoglobin Level"
+                            required>
+                        <input type="text" class="form-control" name="mcv" placeholder="MCV" required>
+                        <input type="text" class="form-control" name="rbc_count" placeholder="RBC Count" required>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Upload Blood Smear Image</label>
+                    <input class="form-control" type="file" name="image" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+
+                {% if warning %}
+                <!-- <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                    <strong>Warning!</strong> {{ warning }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <script>
+                    showAlert("Invalid image or not related to Anemia");
+                </script> -->
+                <!-- <h2 style="color: red;">Warning:</h2> -->
+                <!-- <p style="color: black;">Invalid image or not related to Anemia</p> -->
+                <!-- <img src="{{ warning_image }}" alt="Warning Image" style="border: 2px solid red;"> -->
+                {% endif %}
+
+                <!-- {% if result %}
+        <h2>Result:</h2>
+        <p>Predicted Class: {{ result }}</p>
+        <p>Probability: {{ probability }}</p>
+        <a href="{{ pdf_path }}" download>Download Report</a>
+        {% endif %} -->
+
+                {% if result %}
+                <div class="mt-4 alert alert-success">
+                    <!-- Anemia Type Detected: {{ result }} with a probability of {{ probability }}. -->
+                    Anemia Type Detected: {{ result }}.
+                    <a href="{{ pdf_path }}" download>Download Report</a>
+                </div>
+                {% endif %}
+            </form>
+
+            <!-- {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %} -->
+        </div>

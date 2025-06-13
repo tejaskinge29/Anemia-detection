@@ -1,186 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Dimorphic Anemia Prediction</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>About Us - Anemia Detection Team</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f6f9;
+        }
+
+        .header {
+            background-color: #0d6efd;
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .team-section {
+            padding: 60px 20px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+
+        footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+    </style>
 </head>
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-    
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f0f4f8;
-        color: #333;
-    }
-    
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-    }
-    
-    header {
-        text-align: center;
-        margin-bottom: 40px;
-    }
-    
-    h1 {
-        font-size: 2.5rem;
-        color: #2c3e50;
-    }
-    
-    h2 {
-        color: #2980b9;
-        margin-bottom: 20px;
-    }
-    
-    .about-content {
-        display: flex;
-        align-items: center;
-        gap: 40px;
-    }
-    
-    .image-container {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
-    
-    .image-container img {
-        width: 300px;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        opacity: 0;
-        animation: fadeInZoom 1s forwards;
-    }
-    
-    .text-container p {
-        font-size: 1.2rem;
-        line-height: 1.8;
-        color: #555;
-    }
-    
-    footer {
-        text-align: center;
-        margin-top: 40px;
-        padding: 10px;
-        background-color: #2c3e50;
-        color: #fff;
-    }
-    
-    footer p {
-        font-size: 1rem;
-    }
-    
-    /* Animations */
-    .fade-in {
-        opacity: 0;
-        animation: fadeIn 2s forwards;
-    }
-    
-    .fade-in-zoom {
-        opacity: 0;
-        transform: scale(0.5);
-        animation: fadeInZoom 1s forwards ease-in-out;
-    }
-    
-    @keyframes fadeInZoom {
-        to {
-            opacity: 1;
-            transform: scale(1);
-        }
-    }
-    
-    .slide-in-left {
-        transform: translateX(-100%);
-        animation: slideIn 1s forwards;
-    }
-    
-    @keyframes slideIn {
-        to {
-            transform: translateX(0);
-        }
-    }
-    
-    @keyframes fadeIn {
-        to {
-            opacity: 1;
-        }
-    }
-    
-</style>
+
 <body>
-    <div class="container">
-        <header>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Dimorphic Anemia Prediction</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="about">About Us</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/">Predict Anemia</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </header>
-        
-        <section class="about-content slide-in-left">
-            <div class="image-container">
-                <img src="\uploads\main1.jpeg" alt="Dimorphic Anemia Blood Cells" class="fade-in-zoom">
-                <img src="" alt="Dimorphic Anemia Diagnosis Process" class="fade-in-zoom">
-                <img src="" alt="Dimorphic Anemia Treatment" class="fade-in-zoom">
-            </div>
-            <div class="text-container">
-                <h2>Our Mission</h2>
-                <p>
-                    Dimorphic anemia is a condition characterized by the presence of two different types of anemia 
-                    simultaneously, typically a combination of iron deficiency (microcytic) and vitamin B12 or folate 
-                    deficiency (macrocytic) anemia. Early diagnosis of this condition is critical to ensure proper 
-                    treatment and management.
-                </p>
-                <p>
-                    Our project leverages machine learning models to predict the presence of dimorphic anemia from 
-                    patient data and blood smear images. By uploading a blood smear image, the model can assist in 
-                    identifying key patterns that lead to an accurate diagnosis.
-                </p>
-            </div>
-        </section>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>Meet the Team</h1>
+        <p class="lead">Behind the development of the Anemia Detection System</p>
     </div>
 
-    <footer class="fade-in">
-        <p>&copy; 2024 Dimorphic Anemia Prediction Project. All rights reserved.</p>
+    <!-- Team Section -->
+    <div class="container team-section">
+        <div class="row g-4">
+
+            <!-- Member 1 -->
+            <div class="col-md-4">
+                <div class="card">
+                    <!-- <img src="https://via.placeholder.com/300x280" class="profile-img" alt="Tejas Kinge"> -->
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Tejas Kinge</h5>
+                        <p class="card-text">Data Augmentation, Model Training , Model Testing</p>
+                        <p><i class="bi bi-envelope"></i> tejaskinge29@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Member 2 -->
+            <div class="col-md-4">
+                <div class="card">
+                    <!-- <img src="https://via.placeholder.com/300x280" class="profile-img" alt="Member 2"> -->
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Chaitanya Chambhare</h5>
+                        <p class="card-text">Literature Survey , Dataset Classification, Model Testing</p>
+                        <p><i class="bi bi-envelope"></i> chaitanyachambhare@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Member 3 -->
+            <div class="col-md-4">
+                <div class="card">
+                    <!-- <img src="https://via.placeholder.com/300x280" class="profile-img" alt="Member 3"> -->
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Falguni Mowade</h5>
+                        <p class="card-text">Literature Survey, Dataset Classification, Model Testing
+                        </p>
+                        <p><i class="bi bi-envelope"></i>falgunimowade2003@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Member 4 -->
+            <div class="col-md-4">
+                <div class="card">
+                    <!-- <img src="https://via.placeholder.com/300x280" class="profile-img" alt="Member 4"> -->
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Akshay Dange</h5>
+                        <p class="card-text">UI integration</p>
+                        <p><i class="bi bi-envelope"></i> akshay@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+
+           </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Anemia Detection System | Created by Team Tejas</p>
     </footer>
-    <script >// Animation delay logic
-        window.addEventListener('load', () => {
-            document.querySelectorAll('.fade-in').forEach(element => {
-                element.style.animationDelay = "0.5s";
-            });
-        
-            document.querySelectorAll('.fade-in-zoom').forEach((element, index) => {
-                element.style.animationDelay = `${1 + index * 0.5}s`;
-            });
-        
-            document.querySelector('.slide-in-left').style.animationDelay = "1s";
-        });
-        </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

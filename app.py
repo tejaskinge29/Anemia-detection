@@ -168,9 +168,15 @@ def predict():
         age = request.form['age']
         gender = request.form['gender']
         hemoglobin = request.form['hemoglobin']
-        mcv = request.form['mcv']
         rbc_count = request.form['rbc_count']
+        blood_type = request.form['blood_type']
+        hemoglobin = request.form['hemoglobin']
+        mch = request.form['mch']
+        mcv = request.form['mcv']
 
+
+
+    
         # Get the uploaded image
         file = request.files['image']
         if file:
@@ -201,10 +207,14 @@ def predict():
 
              #Generate PDF report
             patient_name = request.form['name']
-            pdf_path = generate_pdf_report(patient_name, age, gender, predicted_class, class_prob)
+            pdf_path = generate_pdf_report(patient_name, age, gender, predicted_class, class_prob, rbc_count, blood_type, hemoglobin, mch, mcv)
+
+            print("PDF Path:", pdf_path)
+            # Extract filename to send to template
+            pdf_filename = os.path.basename(pdf_path)
 
             # Render the template with the result and provide a link to download the PDF report
-            return render_template('index.html', result=predicted_class, probability=f"{class_prob:.2f}%", pdf_path=pdf_path)
+            return render_template('index.html', result=predicted_class, probability=f"{class_prob:.2f}%", pdf_filename=pdf_filename)
 
             # # Render the template with the result
             # return render_template('index.html', result=predicted_class, probability=f"{class_prob:.2f}%")
@@ -212,12 +222,22 @@ def predict():
     except Exception as e:
         return jsonify({"error": str(e)})
     
-@app.route('/download_report', methods=['GET'])
-def download_report():
-    patient_name = request.args.get('name')
-    file_path = generate_pdf_report(patient_name, ...)
-    return send_file(file_path, as_attachment=True)
+@app.route('/download_report/<filename>')
+def download_report(filename):
+    pdf_path = os.path.join("reports", filename)
+    
+    if not os.path.exists(pdf_path):
+        return "File not found", 404
+    
+    return send_file(pdf_path, as_attachment=True)
+    
+@app.route('/home')
+def home():
+    return render_template('home.html')
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 if __name__ == '__main__':
     if not os.path.exists('uploads'):
